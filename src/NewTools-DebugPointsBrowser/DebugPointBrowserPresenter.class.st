@@ -11,7 +11,8 @@ Class {
 		'inputFilter',
 		'selectAllCheckbox',
 		'variableTargetPresenter',
-		'targetContainer'
+		'targetContainer',
+		'mopCallTargetPresenter'
 	],
 	#category : 'NewTools-DebugPointsBrowser',
 	#package : 'NewTools-DebugPointsBrowser'
@@ -103,6 +104,12 @@ DebugPointBrowserPresenter >> initialize [
 	
 ]
 
+{ #category : 'presenter building' }
+DebugPointBrowserPresenter >> initializeMOPCallTargetPresenter [
+
+	mopCallTargetPresenter := DebugPointMOPCallTargetPresenter new
+]
+
 { #category : 'initialization' }
 DebugPointBrowserPresenter >> initializePresenters [
 
@@ -117,6 +124,7 @@ DebugPointBrowserPresenter >> initializePresenters [
 		                     label: '(De)activate all';
 		                     yourself.
 	self initializeVariableTargetPresenter.
+	self initializeMOPCallTargetPresenter.
 
 	targetContainer := SpPanedLayout newTopToBottom
 		                   add: dpTable;
@@ -164,6 +172,12 @@ DebugPointBrowserPresenter >> select: aDebugPoint [
 ]
 
 { #category : 'layout' }
+DebugPointBrowserPresenter >> switchToMOPCallTargetView [
+
+	self switchToTargetView: mopCallTargetPresenter
+]
+
+{ #category : 'layout' }
 DebugPointBrowserPresenter >> switchToNodeTargetView [
 
 	self switchToTargetView: dpCode
@@ -193,6 +207,12 @@ DebugPointBrowserPresenter >> updateEditor [
 	dpEditor updateAll .
 
 	
+]
+
+{ #category : 'updating - presenters' }
+DebugPointBrowserPresenter >> updateMOPCallTargetPresenterFrom: aDebugPointTarget [
+
+	mopCallTargetPresenter target: aDebugPointTarget
 ]
 
 { #category : 'updating - presenters' }
