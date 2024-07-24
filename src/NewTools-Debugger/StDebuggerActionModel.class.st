@@ -2,8 +2,8 @@
 I implement debug actions exposed by debuggers, and performed on the current debug session.
 "
 Class {
-	#name : 'StDebuggerActionModel',
-	#superclass : 'Object',
+	#name : #StDebuggerActionModel,
+	#superclass : #Object,
 	#instVars : [
 		'session',
 		'contextPredicate',
@@ -16,12 +16,10 @@ Class {
 	#classVars : [
 		'ShouldFilterStack'
 	],
-	#category : 'NewTools-Debugger-Model',
-	#package : 'NewTools-Debugger',
-	#tag : 'Model'
+	#category : 'NewTools-Debugger-Model'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 StDebuggerActionModel class >> on: aDebugSession [
 
 	^ self basicNew
@@ -29,17 +27,17 @@ StDebuggerActionModel class >> on: aDebugSession [
 		  initialize
 ]
 
-{ #category : 'asserting' }
+{ #category : #asserting }
 StDebuggerActionModel class >> shouldFilterStack [
 	^ShouldFilterStack ifNil:[ShouldFilterStack := true]
 ]
 
-{ #category : 'asserting' }
+{ #category : #asserting }
 StDebuggerActionModel class >> shouldFilterStack: aBoolean [
 	ShouldFilterStack := aBoolean
 ]
 
-{ #category : 'settings' }
+{ #category : #settings }
 StDebuggerActionModel class >> shouldFilterStackSettingsOn: aBuilder [
 	<systemsettings>
 	(aBuilder setting: #shouldFilterStack)
@@ -50,13 +48,13 @@ StDebuggerActionModel class >> shouldFilterStackSettingsOn: aBuilder [
 		description: 'Defines if methods with pragma #debuggerCompleteToSender are filtered (hidden) in the debugger stack'
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerActionModel >> announcer [
 
 	^ announcer ifNil: [ announcer := Announcer new ]
 ]
 
-{ #category : 'debug - session' }
+{ #category : #'debug - session' }
 StDebuggerActionModel >> autoClassifyMessage: aMessage inClass: aClass [
 
 	| method |
@@ -64,7 +62,7 @@ StDebuggerActionModel >> autoClassifyMessage: aMessage inClass: aClass [
 	method isClassified ifFalse: [ MethodClassifier classify: method ]
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 StDebuggerActionModel >> clear [
 
 	self unsubscribeFromSystemAnnouncer.
@@ -74,7 +72,7 @@ StDebuggerActionModel >> clear [
 	announcer := nil
 ]
 
-{ #category : 'debug - execution' }
+{ #category : #'debug - execution' }
 StDebuggerActionModel >> clearDebugSession [
 
 	contextPredicate := nil.
@@ -83,7 +81,7 @@ StDebuggerActionModel >> clearDebugSession [
 		clear
 ]
 
-{ #category : 'context' }
+{ #category : #context }
 StDebuggerActionModel >> computeInitialTopContext [
 
 	topContext := session exception signalContext.
@@ -94,7 +92,7 @@ StDebuggerActionModel >> computeInitialTopContext [
 		topContext := self interruptedContext ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerActionModel >> contextPredicate [
 
 	^ contextPredicate ifNil: [ 
@@ -102,7 +100,7 @@ StDebuggerActionModel >> contextPredicate [
 			                      self topContext ]
 ]
 
-{ #category : 'context' }
+{ #category : #context }
 StDebuggerActionModel >> contextPredicateFor: aContext [
 
 	| postMortem ex |
@@ -118,7 +116,7 @@ StDebuggerActionModel >> contextPredicateFor: aContext [
 	^ self predicateFor: aContext exception: ex postMortem: postMortem
 ]
 
-{ #category : 'debug - predicates' }
+{ #category : #'debug - predicates' }
 StDebuggerActionModel >> contextSignalsAnException: aContext [
 
 	^ aContext isNotNil 
@@ -126,7 +124,7 @@ StDebuggerActionModel >> contextSignalsAnException: aContext [
 		and: [  aContext selector = #signal ] ]
 ]
 
-{ #category : 'debug - stack' }
+{ #category : #'debug - stack' }
 StDebuggerActionModel >> copyStackToClipboard [
 	Clipboard
 		clipboardText:
@@ -134,22 +132,22 @@ StDebuggerActionModel >> copyStackToClipboard [
 				streamContents: [ :s | self interruptedContext printDebugStackOn: s ])
 ]
 
-{ #category : 'stack - helpers' }
+{ #category : #'stack - helpers' }
 StDebuggerActionModel >> exception [
 	^ self session exception
 ]
 
-{ #category : 'debug - stack' }
+{ #category : #'debug - stack' }
 StDebuggerActionModel >> fileOutMethod: aMethod [
 	aMethod methodClass fileOutMethod: aMethod selector
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerActionModel >> filterStack [
 	^ filterStack
 ]
 
-{ #category : 'debug - stack' }
+{ #category : #'debug - stack' }
 StDebuggerActionModel >> filterStack: aStack [
 	| context contextsToReject |	
 	self shouldFilterStack ifFalse: [  ^aStack ].
@@ -171,7 +169,7 @@ StDebuggerActionModel >> filterStack: aStack [
 	^ aStack
 ]
 
-{ #category : 'debug - session' }
+{ #category : #'debug - session' }
 StDebuggerActionModel >> implement: aMessage inClass: aClass forContext: aContext [
 
 	| method |
@@ -184,7 +182,7 @@ StDebuggerActionModel >> implement: aMessage inClass: aClass forContext: aContex
 	^ method
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 StDebuggerActionModel >> initialize [
 	super initialize.
 	self computeInitialTopContext.
@@ -194,23 +192,23 @@ StDebuggerActionModel >> initialize [
 	preventUpdate := false
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerActionModel >> interruptedContext [
 	^self session interruptedContext
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerActionModel >> interruptedProcess [
 	^ self session interruptedProcess
 ]
 
-{ #category : 'debug - predicates' }
+{ #category : #'debug - predicates' }
 StDebuggerActionModel >> isContextAnAssertionFailure [
 
 	^ self contextPredicate isContextAnAssertionFailure
 ]
 
-{ #category : 'context' }
+{ #category : #context }
 StDebuggerActionModel >> isContextPostMortem: aContext [
 
 	aContext == topContext ifFalse: [ 
@@ -221,65 +219,65 @@ StDebuggerActionModel >> isContextPostMortem: aContext [
 	^ self session isContextPostMortem: self interruptedContext
 ]
 
-{ #category : 'debug - predicates' }
+{ #category : #'debug - predicates' }
 StDebuggerActionModel >> isContextSteppable [
 
 	self interruptedContext ifNil: [ ^ false ].
 	^ self contextPredicate isSteppable
 ]
 
-{ #category : 'debug - predicates' }
+{ #category : #'debug - predicates' }
 StDebuggerActionModel >> isInterruptedContextAnAssertEqualsFailure [
 
 	^ self contextPredicate isContextAnAssertionFailure
 ]
 
-{ #category : 'debug - predicates' }
+{ #category : #'debug - predicates' }
 StDebuggerActionModel >> isInterruptedContextDead [
 	^ self contextPredicate isContextDead
 ]
 
-{ #category : 'debug - predicates' }
+{ #category : #'debug - predicates' }
 StDebuggerActionModel >> isInterruptedContextDoesNotUnderstand [
 	^self contextPredicate isContextDoesNotUnderstand
 
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 StDebuggerActionModel >> isInterruptedContextGeneratingCode [
 
 	^ self contextPredicate isGeneratingCode
 ]
 
-{ #category : 'debug - predicates' }
+{ #category : #'debug - predicates' }
 StDebuggerActionModel >> isInterruptedContextMissingClassException [
 
 	^ self contextPredicate isContextMissingClassException
 ]
 
-{ #category : 'debug - predicates' }
+{ #category : #'debug - predicates' }
 StDebuggerActionModel >> isInterruptedContextPostMortem [
 	^ self contextPredicate isContextPostMortem
 ]
 
-{ #category : 'debug - predicates' }
+{ #category : #'debug - predicates' }
 StDebuggerActionModel >> isInterruptedContextSubclassResponsibilityException [
 	^ self contextPredicate isContextSubclassResponsibilityException
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 StDebuggerActionModel >> newStepAnnouncement [
 
 	^ (StDebuggerActionModelStepAnnouncement debuggerActionModel: self)
 ]
 
-{ #category : 'debug - execution' }
+{ #category : #'debug - execution' }
 StDebuggerActionModel >> peelToFirstLike: aContext [
 	self session peelToFirstLike: aContext.
 	self updateTopContext
 ]
 
-{ #category : 'context' }
+{ #category : #context }
 StDebuggerActionModel >> predicateFor: aContext exception: exception postMortem: isContextPostMortem [
 
 	^ (StDebuggerErrorContextPredicate context: aContext)
@@ -288,7 +286,7 @@ StDebuggerActionModel >> predicateFor: aContext exception: exception postMortem:
 		  yourself
 ]
 
-{ #category : 'context' }
+{ #category : #context }
 StDebuggerActionModel >> predicateFor: aContext failure: testFailure postMortem: isContextPostMortem [
 
 	^ (StDebuggerTestFailureContextPredicate context: aContext)
@@ -297,7 +295,7 @@ StDebuggerActionModel >> predicateFor: aContext failure: testFailure postMortem:
 		  yourself
 ]
 
-{ #category : 'context' }
+{ #category : #context }
 StDebuggerActionModel >> predicateFor: aContext postMortem: isContextPostMortem [
 
 	^ (StDebuggerContextPredicate context: aContext)
@@ -305,7 +303,7 @@ StDebuggerActionModel >> predicateFor: aContext postMortem: isContextPostMortem 
 		  yourself
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 StDebuggerActionModel >> preventUpdatesDuring: aBlock [
 
 	"Sets the prevent update flag during the execution of a block. Restores its value after the block 	finishes"
@@ -318,13 +316,13 @@ StDebuggerActionModel >> preventUpdatesDuring: aBlock [
 	self update ] ensure: [ preventUpdate := oldEventFlag ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerActionModel >> previousASTScope [
 
 	^ previousASTScope
 ]
 
-{ #category : 'debug - execution' }
+{ #category : #'debug - execution' }
 StDebuggerActionModel >> proceedDebugSession [
 
 	contextPredicate := nil.
@@ -333,13 +331,13 @@ StDebuggerActionModel >> proceedDebugSession [
 		clear
 ]
 
-{ #category : 'events-triggering' }
+{ #category : #'events-triggering' }
 StDebuggerActionModel >> raiseUpdateEvents: anAnnouncement [
 
 	self announcer announce: anAnnouncement
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 StDebuggerActionModel >> recompileMethodTo: aString inContext: aContext notifying: aNotifyer [
 
 	| methodContext homePC |
@@ -360,7 +358,7 @@ StDebuggerActionModel >> recompileMethodTo: aString inContext: aContext notifyin
 		                     homePC) scope
 ]
 
-{ #category : 'context' }
+{ #category : #context }
 StDebuggerActionModel >> referenceContext [
 	"The reference context is the context that we wish to see in the debugger's stack.
 	It it either the interrupted context if we are in a non-exception case,
@@ -369,7 +367,7 @@ StDebuggerActionModel >> referenceContext [
 	^topContext receiver signalerContext 
 ]
 
-{ #category : 'events - handling' }
+{ #category : #'events - handling' }
 StDebuggerActionModel >> registerActionsForSession: aSession [
 
 	self flag: 'Rewrite it'.
@@ -384,7 +382,7 @@ StDebuggerActionModel >> registerActionsForSession: aSession [
 			when: #clear send: #clear to: self ]
 ]
 
-{ #category : 'events - removing' }
+{ #category : #'events - removing' }
 StDebuggerActionModel >> removeActionsForSession: aSession [
 	self flag: 'Rewrite it'.
 	aSession
@@ -397,7 +395,7 @@ StDebuggerActionModel >> removeActionsForSession: aSession [
 				removeActionsForEvent: #contextChanged ]
 ]
 
-{ #category : 'debug - execution' }
+{ #category : #'debug - execution' }
 StDebuggerActionModel >> restartContext: aContext [
 
 	previousASTScope := (aContext compiledCode sourceNodeForPC:
@@ -406,7 +404,7 @@ StDebuggerActionModel >> restartContext: aContext [
 	self updateTopContext
 ]
 
-{ #category : 'debug - execution' }
+{ #category : #'debug - execution' }
 StDebuggerActionModel >> returnValueFromExpression: aString fromContext: aContext [
 	| value |
 	value := session class compiler
@@ -417,7 +415,7 @@ StDebuggerActionModel >> returnValueFromExpression: aString fromContext: aContex
 	self updateTopContext
 ]
 
-{ #category : 'debug - execution' }
+{ #category : #'debug - execution' }
 StDebuggerActionModel >> runToSelection: aSelectionInterval inContext: aContext [
 
 	previousASTScope := aContext sourceNodeExecuted scope.
@@ -426,17 +424,17 @@ StDebuggerActionModel >> runToSelection: aSelectionInterval inContext: aContext 
 	self updateTopContext
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 StDebuggerActionModel >> selectedCodeRangeForContext: aContext [ 
 	^ self session selectedCodeRangeForContext: aContext
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerActionModel >> session [
 	^session
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerActionModel >> session: aDebugSession [
 	session ifNotNil: [ self removeActionsForSession: session ].
 	session := aDebugSession.
@@ -447,29 +445,29 @@ StDebuggerActionModel >> session: aDebugSession [
 	self updateIfAble
 ]
 
-{ #category : 'debug - stack' }
+{ #category : #'debug - stack' }
 StDebuggerActionModel >> shouldFilterStack [
 
 	^ self filterStack and: [ self class shouldFilterStack ]
 ]
 
-{ #category : 'accessing - variables' }
+{ #category : #'accessing - variables' }
 StDebuggerActionModel >> stack [
 	^ self session stack
 ]
 
-{ #category : 'stack - helpers' }
+{ #category : #'stack - helpers' }
 StDebuggerActionModel >> stackOfSize: anInteger [ 
 	^ self session stackOfSize: anInteger
 ]
 
-{ #category : 'context' }
+{ #category : #context }
 StDebuggerActionModel >> statusStringForContext [
 
 	^ self contextPredicate printDescription
 ]
 
-{ #category : 'debug - stepping' }
+{ #category : #'debug - stepping' }
 StDebuggerActionModel >> stepInto: aContext [
 
 	previousASTScope := aContext sourceNodeExecuted scope.
@@ -480,7 +478,7 @@ StDebuggerActionModel >> stepInto: aContext [
 	self updateTopContext
 ]
 
-{ #category : 'debug - stepping' }
+{ #category : #'debug - stepping' }
 StDebuggerActionModel >> stepOver: aContext [
 
 	previousASTScope := aContext sourceNodeExecuted scope.
@@ -492,7 +490,7 @@ StDebuggerActionModel >> stepOver: aContext [
 	self updateTopContext
 ]
 
-{ #category : 'debug - stepping' }
+{ #category : #'debug - stepping' }
 StDebuggerActionModel >> stepThrough: aContext [
 
 	previousASTScope := aContext sourceNodeExecuted scope.
@@ -500,7 +498,7 @@ StDebuggerActionModel >> stepThrough: aContext [
 	self updateTopContext
 ]
 
-{ #category : 'system subscription' }
+{ #category : #'system subscription' }
 StDebuggerActionModel >> subscribeToMethodAddedAnnouncement [
 
 	SystemAnnouncer uniqueInstance weak
@@ -509,31 +507,31 @@ StDebuggerActionModel >> subscribeToMethodAddedAnnouncement [
 		to: self
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerActionModel >> topContext [
 	^ topContext
 ]
 
-{ #category : 'removing' }
+{ #category : #removing }
 StDebuggerActionModel >> unsubscribe: anEventListener [
 
 	self announcer unsubscribe: anEventListener
 ]
 
-{ #category : 'system subscription' }
+{ #category : #'system subscription' }
 StDebuggerActionModel >> unsubscribeFromSystemAnnouncer [
 
 	SystemAnnouncer uniqueInstance unsubscribe: self
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 StDebuggerActionModel >> update [
 
 	self update:
 		(StDebuggerActionModelStepAnnouncement debuggerActionModel: self)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerActionModel >> update: anAnnouncement [
 
 	self updateTopContext.
@@ -543,7 +541,7 @@ StDebuggerActionModel >> update: anAnnouncement [
 	self raiseUpdateEvents: anAnnouncement
 ]
 
-{ #category : 'updating - widgets' }
+{ #category : #'updating - widgets' }
 StDebuggerActionModel >> updateAfterMethodAdded [
 
 	self updateContextPredicate.
@@ -552,7 +550,7 @@ StDebuggerActionModel >> updateAfterMethodAdded [
 			 self)
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 StDebuggerActionModel >> updateContextChanged [
 
 	self updateIfAble:
@@ -560,44 +558,44 @@ StDebuggerActionModel >> updateContextChanged [
 			 debuggerActionModel: self)
 ]
 
-{ #category : 'context' }
+{ #category : #context }
 StDebuggerActionModel >> updateContextPredicate [
 	^self updateContextPredicateFor: self topContext
 ]
 
-{ #category : 'context' }
+{ #category : #context }
 StDebuggerActionModel >> updateContextPredicateFor: aContext [    
 	contextPredicate := self contextPredicateFor: aContext.
 	^contextPredicate
 ]
 
-{ #category : 'debug - session' }
+{ #category : #'debug - session' }
 StDebuggerActionModel >> updateDebugSession [
 	self contextPredicate updateSessionForModel: self 
 		
 ]
 
-{ #category : 'debug - session' }
+{ #category : #'debug - session' }
 StDebuggerActionModel >> updateDebugSessionException: e [
 
 	self session exception: e
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerActionModel >> updateIfAble [
 
 	self updateIfAble:
 		(StDebuggerActionModelStepAnnouncement debuggerActionModel: self)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerActionModel >> updateIfAble: anAnnouncement [
 
 	preventUpdate ifNil: [ ^ self ].
 	preventUpdate ifFalse: [ self update: anAnnouncement ]
 ]
 
-{ #category : 'announcement' }
+{ #category : #announcement }
 StDebuggerActionModel >> updateRestart [
 
 	self updateIfAble:
@@ -605,27 +603,27 @@ StDebuggerActionModel >> updateRestart [
 			   self)
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 StDebuggerActionModel >> updateResume [
 
 	self updateIfAble:
 		(StDebuggerActionModelResumeAnnouncement debuggerActionModel: self)
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 StDebuggerActionModel >> updateStep [
 
 	self updateIfAble:
 		(StDebuggerActionModelStepAnnouncement debuggerActionModel: self)
 ]
 
-{ #category : 'context' }
+{ #category : #context }
 StDebuggerActionModel >> updateTopContext [
 
 	topContext := self interruptedContext
 ]
 
-{ #category : 'announcer' }
+{ #category : #announcer }
 StDebuggerActionModel >> when: anAnnouncementClass send: aSelector to: anObject [
 
 	self announcer weak

@@ -1,7 +1,5 @@
 Class {
-	#name : 'StDebuggerActionModelContextChangedAnnouncement',
-	#superclass : 'StDebuggerActionModelAnnouncement',
-	#category : 'NewTools-Debugger-Model',
-	#package : 'NewTools-Debugger',
-	#tag : 'Model'
+	#name : #StDebuggerActionModelContextChangedAnnouncement,
+	#superclass : #StDebuggerActionModelAnnouncement,
+	#category : 'NewTools-Debugger-Model'
 }

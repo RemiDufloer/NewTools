@@ -8,29 +8,27 @@ As I provide the default debugger commands, you should only extend me by using t
 Using me to add command in the tree makes them default for the debugger code presenter.
 "
 Class {
-	#name : 'StDebuggerCodeCommandTreeBuilder',
-	#superclass : 'StDebuggerCommandTreeBuilder',
-	#category : 'NewTools-Debugger-Model',
-	#package : 'NewTools-Debugger',
-	#tag : 'Model'
+	#name : #StDebuggerCodeCommandTreeBuilder,
+	#superclass : #StDebuggerCommandTreeBuilder,
+	#category : 'NewTools-Debugger-Model'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerCodeCommandTreeBuilder class >> displayStrategy [
 	^CmUIDisplayAsSubMenu 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerCodeCommandTreeBuilder class >> groupDescription [
 	^ 'Debug actions from code'
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerCodeCommandTreeBuilder class >> groupName [ 	
 	^'Code'
 ]
 
-{ #category : 'building' }
+{ #category : #building }
 StDebuggerCodeCommandTreeBuilder >> buildDebuggerCommandGroup [
 	| codeGroup |
 	codeGroup := self group.
@@ -38,7 +36,7 @@ StDebuggerCodeCommandTreeBuilder >> buildDebuggerCommandGroup [
 	codeGroup beDisplayedAsGroup
 ]
 
-{ #category : 'commands' }
+{ #category : #commands }
 StDebuggerCodeCommandTreeBuilder >> codeDebugCommands [
 	| group |
 	group := (CmCommandGroup named: self codeDebugCommandsGroupName)
@@ -53,17 +51,17 @@ StDebuggerCodeCommandTreeBuilder >> codeDebugCommands [
 	^ group
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerCodeCommandTreeBuilder >> codeDebugCommandsDescription [
 	^'Execution control'
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerCodeCommandTreeBuilder >> codeDebugCommandsGroupName [
 	^'Execution'
 ]
 
-{ #category : 'accessing - commands classes' }
+{ #category : #'accessing - commands classes' }
 StDebuggerCodeCommandTreeBuilder >> codeExecutionControlCommandsClasses [
 	^ {StRunToSelectionCommand}
 ]

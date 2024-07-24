@@ -4,17 +4,15 @@ I provide a specialized context description in the case where an exception was f
 I reference that exception.
 "
 Class {
-	#name : 'StDebuggerErrorContextPredicate',
-	#superclass : 'StDebuggerContextPredicate',
+	#name : #StDebuggerErrorContextPredicate,
+	#superclass : #StDebuggerContextPredicate,
 	#instVars : [
 		'exception'
 	],
-	#category : 'NewTools-Debugger-Model',
-	#package : 'NewTools-Debugger',
-	#tag : 'Model'
+	#category : 'NewTools-Debugger-Model'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerErrorContextPredicate >> assertEqualsSelectors [
 	self flag: 'Add the denies... use a pragma?'.
 	^ #(#assert:equals: #assert:closeTo:precision: #assert:closeTo: #assert:identicalTo: #assertCollection:equals: #assertCollection:hasSameElements:)
@@ -24,17 +22,17 @@ StDebuggerErrorContextPredicate >> assertEqualsSelectors [
 	     #assertCollection:hasSameElements: )"
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 StDebuggerErrorContextPredicate >> contextSignalsException [
 	^true
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerErrorContextPredicate >> exception: anObject [
 	exception := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerErrorContextPredicate >> exceptionWhiteList [
 
 	^ { 
@@ -43,7 +41,7 @@ StDebuggerErrorContextPredicate >> exceptionWhiteList [
 		  Halt }
 ]
 
-{ #category : 'predicates' }
+{ #category : #predicates }
 StDebuggerErrorContextPredicate >> isContextDoesNotUnderstand [
 
 	^ exception class = MessageNotUnderstood and: [ 
@@ -54,24 +52,24 @@ StDebuggerErrorContextPredicate >> isContextDoesNotUnderstand [
 				  exception signalerContext method methodClass == Object ] ]
 ]
 
-{ #category : 'predicates' }
+{ #category : #predicates }
 StDebuggerErrorContextPredicate >> isContextMissingClassException [
 
 	^ #(#UndeclaredVariableRead #UndeclaredVariableWrite) includes: exception class name
 ]
 
-{ #category : 'predicates' }
+{ #category : #predicates }
 StDebuggerErrorContextPredicate >> isContextSubclassResponsibilityException [
 	^ exception class == SubclassResponsibility
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 StDebuggerErrorContextPredicate >> isGeneratingCode [
 
 	^ exception isGeneratingCode
 ]
 
-{ #category : 'predicates' }
+{ #category : #predicates }
 StDebuggerErrorContextPredicate >> isSteppable [
 
 	super isSteppable ifFalse: [ ^ false ].
@@ -83,7 +81,7 @@ StDebuggerErrorContextPredicate >> isSteppable [
 	^ exception isResumable
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 StDebuggerErrorContextPredicate >> printDescription [
 
 	| str |
@@ -95,7 +93,7 @@ StDebuggerErrorContextPredicate >> printDescription [
 	^ str contents
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 StDebuggerErrorContextPredicate >> updateSessionForModel: aStDebuggerActionModel [
 
 	aStDebuggerActionModel updateDebugSessionException: exception

@@ -3,19 +3,17 @@ I am a simple wrapper holding the current context and the current debug session 
 My purpose is only to display context and debug session related information in the debugger inspector.
 "
 Class {
-	#name : 'StDebuggerContext',
-	#superclass : 'Object',
+	#name : #StDebuggerContext,
+	#superclass : #Object,
 	#instVars : [
 		'context',
 		'exception',
 		'debugger'
 	],
-	#category : 'NewTools-Debugger-Model',
-	#package : 'NewTools-Debugger',
-	#tag : 'Model'
+	#category : 'NewTools-Debugger-Model'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 StDebuggerContext class >> context: aContext [
 
 	^ self new
@@ -23,7 +21,7 @@ StDebuggerContext class >> context: aContext [
 		  yourself
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerContext >> buildExtensionNodes [
 
 	| visitor |
@@ -37,7 +35,7 @@ StDebuggerContext >> buildExtensionNodes [
 		  ifNil: [ #(  ) asOrderedCollection ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerContext >> buildInspectorNodes [
 
 	| nodes argsNodes tempsNodes tempsAndArgs |
@@ -58,24 +56,24 @@ StDebuggerContext >> buildInspectorNodes [
 	^ nodes
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerContext >> context [
 
 	^ context ifNil: [ context := [] asContext ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerContext >> context: anObject [
 	context := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerContext >> debugger: aDebugger [
 
 	debugger := aDebugger
 ]
 
-{ #category : 'building' }
+{ #category : #building }
 StDebuggerContext >> doesNotUnderstandNodesFor: anException [
 
 	^ (self exceptionNodesFor: anException)
@@ -86,23 +84,23 @@ StDebuggerContext >> doesNotUnderstandNodesFor: anException [
 		  yourself
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerContext >> exception [
 	^ exception ifNil:[exception := OupsNullException new]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerContext >> exception: anException [
 	exception := anException 
 ]
 
-{ #category : 'nodes' }
+{ #category : #nodes }
 StDebuggerContext >> exceptionNodes [
 
 	^ self exception stDebuggerInspectorNodesFor: self
 ]
 
-{ #category : 'building' }
+{ #category : #building }
 StDebuggerContext >> exceptionNodesFor: anException [
 
 	^ OrderedCollection new
@@ -113,43 +111,43 @@ StDebuggerContext >> exceptionNodesFor: anException [
 		  yourself
 ]
 
-{ #category : 'building' }
+{ #category : #building }
 StDebuggerContext >> nullExceptionNodesFor: anException [
 
 	^ #(  )
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 StDebuggerContext >> printOn: aStream [
 	aStream nextPutAll: context asString 
 ]
 
-{ #category : 'nodes' }
+{ #category : #nodes }
 StDebuggerContext >> receiverNodes [
 
 	^ self context receiver allInspectorNodes reject: [ :node | 
 		  node label = 'self' ]
 ]
 
-{ #category : 'nodes' }
+{ #category : #nodes }
 StDebuggerContext >> selfNode [
 
 	^ StInspectorSelfNode hostObject: (self context home ifNotNil: [:home | home receiver])
 ]
 
-{ #category : 'nodes' }
+{ #category : #nodes }
 StDebuggerContext >> stackTopNode [
 	^StInspectorStackTopNode hostObject: self context
 ]
 
-{ #category : 'nodes' }
+{ #category : #nodes }
 StDebuggerContext >> temporaryVariablesNodes [
 
 	^ self context astScope allTemps collect: [ :temp | 
 		  (StInspectorTempNode hostObject: self context) tempVariable: temp ]
 ]
 
-{ #category : 'nodes' }
+{ #category : #nodes }
 StDebuggerContext >> thisContextNode [ 
 	^StInspectorThisContextNode hostObject: self context
 ]

@@ -1,27 +1,25 @@
 Class {
-	#name : 'StGenerateCode',
-	#superclass : 'Error',
+	#name : #StGenerateCode,
+	#superclass : #Error,
 	#instVars : [
 		'lastSelectionInterval'
 	],
-	#category : 'NewTools-Debugger-Model',
-	#package : 'NewTools-Debugger',
-	#tag : 'Model'
+	#category : 'NewTools-Debugger-Model'
 }
 
-{ #category : 'code generation' }
+{ #category : #'code generation' }
 StGenerateCode >> generatedCodeFromDebugger: aDebugger [
 
 	self subclassResponsibility
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 StGenerateCode >> isGeneratingCode [
 
 	^ true
 ]
 
-{ #category : 'rewriting' }
+{ #category : #rewriting }
 StGenerateCode >> rewriteCodeInDebugger: aDebugger [
 
 	| text rewritedInterval generatedCode newText highlightedInterval |
@@ -43,13 +41,13 @@ StGenerateCode >> rewriteCodeInDebugger: aDebugger [
 	^ highlightedInterval
 ]
 
-{ #category : 'rewriting' }
+{ #category : #rewriting }
 StGenerateCode >> rewritedCodeIntervalInDebugger: aDebugger [
 
 	self subclassResponsibility
 ]
 
-{ #category : 'rewriting' }
+{ #category : #rewriting }
 StGenerateCode >> selectedCodeRangeForContext: aContext forDebugger: aDebugger [
 
 	^ aDebugger unsavedCodeChanges

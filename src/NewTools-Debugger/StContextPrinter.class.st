@@ -1,12 +1,10 @@
 Class {
-	#name : 'StContextPrinter',
-	#superclass : 'Object',
-	#category : 'NewTools-Debugger-Model',
-	#package : 'NewTools-Debugger',
-	#tag : 'Model'
+	#name : #StContextPrinter,
+	#superclass : #Object,
+	#category : 'NewTools-Debugger-Model'
 }
 
-{ #category : 'printing' }
+{ #category : #printing }
 StContextPrinter class >> printContext: aContext [
 
 	^ String streamContents: [ :stream |
@@ -15,7 +13,7 @@ StContextPrinter class >> printContext: aContext [
 		  self printMethod: aContext method on: stream ]
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 StContextPrinter class >> printMethod: aCompiledMethod on: aStream [
 	aStream << '>>'.
 	aStream << (aCompiledMethod isCompiledBlock
@@ -23,7 +21,7 @@ StContextPrinter class >> printMethod: aCompiledMethod on: aStream [
 		ifFalse: [ aCompiledMethod selector ])
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 StContextPrinter class >> printPackage: aPackage on: aStream [
 
 	aPackage ifNil: [ ^ self ].
@@ -33,7 +31,7 @@ StContextPrinter class >> printPackage: aPackage on: aStream [
 	aStream space
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 StContextPrinter class >> printReceiverClassInContext: aContext on: aStream [
 
 	| receiverClass methodClass |

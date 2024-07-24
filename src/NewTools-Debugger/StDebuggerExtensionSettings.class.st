@@ -2,14 +2,12 @@
 I define settings to configure debugger extensions, *i.e.*, all users of `TStDebuggerExtension`.
 "
 Class {
-	#name : 'StDebuggerExtensionSettings',
-	#superclass : 'Object',
-	#category : 'NewTools-Debugger-Model',
-	#package : 'NewTools-Debugger',
-	#tag : 'Model'
+	#name : #StDebuggerExtensionSettings,
+	#superclass : #Object,
+	#category : 'NewTools-Debugger-Model'
 }
 
-{ #category : 'settings' }
+{ #category : #settings }
 StDebuggerExtensionSettings class >> debuggerExtensionSettingsForClass: toolClass builder: aBuilder [
 
 	| toolName |
@@ -32,7 +30,7 @@ StDebuggerExtensionSettings class >> debuggerExtensionSettingsForClass: toolClas
 					'Position of the tool tab in the debugger right column.' ]
 ]
 
-{ #category : 'settings' }
+{ #category : #settings }
 StDebuggerExtensionSettings class >> debuggerExtensionSettingsOn: aBuilder [
 
 	<systemsettings>

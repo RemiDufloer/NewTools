@@ -2,31 +2,29 @@
 I am a presenter that provides a table to activate or unactivate debugger extensions
 "
 Class {
-	#name : 'StDebuggerExtensionSettingsPresenter',
-	#superclass : 'SpPresenter',
+	#name : #StDebuggerExtensionSettingsPresenter,
+	#superclass : #SpPresenter,
 	#instVars : [
 		'debuggerExtensionClasses',
 		'extensionClassesTable',
 		'activateAllCheckbox'
 	],
-	#category : 'NewTools-Debugger-View',
-	#package : 'NewTools-Debugger',
-	#tag : 'View'
+	#category : 'NewTools-Debugger-View'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerExtensionSettingsPresenter class >> debuggerClass [
 
 	^ StDebugger
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerExtensionSettingsPresenter >> debuggerClass [
 
 	^ self class debuggerClass
 ]
 
-{ #category : 'layout' }
+{ #category : #layout }
 StDebuggerExtensionSettingsPresenter >> defaultLayout [
 
 	^ SpBoxLayout newVertical
@@ -39,7 +37,7 @@ StDebuggerExtensionSettingsPresenter >> defaultLayout [
 		  yourself
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 StDebuggerExtensionSettingsPresenter >> initialize [
 
 	debuggerExtensionClasses := self debuggerClass extensionToolsClasses
@@ -47,7 +45,7 @@ StDebuggerExtensionSettingsPresenter >> initialize [
 	super initialize
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 StDebuggerExtensionSettingsPresenter >> initializePresenters [
 
 	extensionClassesTable := self newTable
@@ -81,7 +79,7 @@ StDebuggerExtensionSettingsPresenter >> initializePresenters [
 		                       yourself
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 StDebuggerExtensionSettingsPresenter >> showAllInDebugger: aBoolean [
 
 	debuggerExtensionClasses do: [ :class |

@@ -4,18 +4,16 @@ It is configureable through api methods.
 To change the layout, it takes as input a dictionary with the name of the element to layout associated to the element itself.
 "
 Class {
-	#name : 'StDebuggerLayoutConfiguration',
-	#superclass : 'Object',
+	#name : #StDebuggerLayoutConfiguration,
+	#superclass : #Object,
 	#instVars : [
 		'order',
 		'selectedLayout'
 	],
-	#category : 'NewTools-Debugger-Model',
-	#package : 'NewTools-Debugger',
-	#tag : 'Model'
+	#category : 'NewTools-Debugger-Model'
 }
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 StDebuggerLayoutConfiguration >> beHorizontalCodeThenStack [
 
 	order := #( #code #stack ).
@@ -24,7 +22,7 @@ StDebuggerLayoutConfiguration >> beHorizontalCodeThenStack [
 		  yourself
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 StDebuggerLayoutConfiguration >> beHorizontalStackThenCode [
 
 	order := #( #stack #code ).
@@ -33,7 +31,7 @@ StDebuggerLayoutConfiguration >> beHorizontalStackThenCode [
 		  yourself
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 StDebuggerLayoutConfiguration >> beVerticalCodeThenStack [
 
 	order := #( #code #stack ).
@@ -42,7 +40,7 @@ StDebuggerLayoutConfiguration >> beVerticalCodeThenStack [
 		  yourself
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 StDebuggerLayoutConfiguration >> beVerticalStackThenCode [
 
 	order := #( #stack #code ).
@@ -51,7 +49,7 @@ StDebuggerLayoutConfiguration >> beVerticalStackThenCode [
 		  yourself
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 StDebuggerLayoutConfiguration >> configureForLayouts: layoutsDictionary [
 
 	| layout |
@@ -63,20 +61,20 @@ StDebuggerLayoutConfiguration >> configureForLayouts: layoutsDictionary [
 	^ layout
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 StDebuggerLayoutConfiguration >> initialize [
 
 	order := #( #stack #code ).
 	selectedLayout := #beVerticalStackThenCode
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerLayoutConfiguration >> selectedLayout [
 
 	^ selectedLayout
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 StDebuggerLayoutConfiguration >> selectedLayout: anObject [
 
 	selectedLayout := anObject
